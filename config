@@ -16,9 +16,6 @@ set $MyConfigRoot /home/nekvinder
 exec_always xrandr --output $DP1 --primary --mode 1920x1080 --rotate normal
 # Custom monitor settings
 
-
-
-
 new_window pixel 1
 
 gaps inner 1
@@ -41,6 +38,8 @@ bindsym $mod+7    workspace  $ws7
 bindsym $mod+8    workspace  $ws8
 bindsym $mod+9    workspace  $ws9
 bindsym $mod+0    workspace  $ws10
+bindsym $alt+minus workspace back_and_forth
+
 
 bindcode $mod+87 workspace 1
 bindcode $mod+88 workspace 2
@@ -224,8 +223,11 @@ bindsym $mod+f workspace number $ws9; exec [ $(ps h -C recoll | wc -l) = 0 ] && 
 for_window [instance="^copyq$" class="^Copyq$"] border pixel 0, floating enable
 for_window [instance="^drata-agent$" class="^drata-agent$"] border pixel 0, floating enable
 
-bindsym $mod+b [class="firefox" title="Nek Task Planner"] scratchpad show; resize set 1920 1060, move position center; exec $MyConfigRoot/scripts/personal/i3helper/runTasksManager.sh
-for_window [class="firefox" title="Nek Task Planner"] floating enable, resize set 800 600, move scratchpad
+# bindsym $mod+b [class="firefox" title="Nek Task Planner"] scratchpad show; resize set 1920 1060, move position center; exec $MyConfigRoot/scripts/personal/i3helper/runTasksManager.sh
+# for_window [class="firefox" title="Nek Task Planner"] floating enable, resize set 800 600, move scratchpad
+
+bindsym $mod+b [class="firefox" title="Inbox: Todoist"] scratchpad show; resize set 1920 1060, move position center; exec $MyConfigRoot/scripts/personal/i3helper/runtodoist.sh
+for_window [class="firefox" title="Inbox: Todoist"] floating enable, resize set 800 600, move scratchpad
 
 bindsym $mod+n [class="firefox" title="https://chat.openai.com"] scratchpad show; resize set 1920 1060, move position center; exec $MyConfigRoot/scripts/personal/i3helper/runScratchCHATGPT.sh
 for_window [class="firefox" title="https://chat.openai.com"] floating enable, resize set 800 600, move scratchpad
@@ -410,6 +412,7 @@ bindsym $alt+Tab exec rofi -show window \
 
 #bindsym F10 exec rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi
+
 
 #
 #exec --no-startup-id greenclip daemon>/dev/null
