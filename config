@@ -7,13 +7,16 @@ set $mod Mod4
 # Custom monitor settings
 # To setup : use `xrandr -q | grep " connected" | cut -d ' ' -f1`
 
-set $DP1 eDP1
-set $DP2 eDP1
-#set $DP2 HDMI-1-0
+set $DP1 eDP-1
+# set $DP2 eDP1
+set $DP2 HDMI-1-0
 set $MyConfigRoot /home/nekvinder
 
 #exec_always xrandr --output $DP1 --primary --mode 1920x1080 --pos 1360x0 --rotate normal --output $DP2 --mode 1360x768 --pos 0x0 --rotate normal
-exec_always xrandr --output $DP1 --primary --mode 1920x1080 --rotate normal
+# exec_always xrandr --output $DP1 --primary --mode 1920x1080 --pos 1360x0 --rotate normal --output $DP2 --mode 3440x1440 --pos 0x0 --rotate normal
+exec_always xrandr --output $DP1 --primary --mode 1920x1080 --pos 0x360 --rotate normal --output DP-2 --off --output DP-3 --off --output DP-1-0 --off --output DP-1-1 --off --output $DP2 --mode 3440x1440 --pos 1920x0 --rotate normal
+# exec_always xrandr --output $DP1 --mode 1920x1080 --pos 1360x0 --rotate normal --output $DP2 --primary --mode 3440x1440 --pos 0x0 --rotate normal
+# exec_always xrandr --output $DP1 --primary --mode 1920x1080 --rotate normal
 # Custom monitor settings
 
 new_window pixel 1
@@ -38,7 +41,6 @@ bindsym $mod+7    workspace  $ws7
 bindsym $mod+8    workspace  $ws8
 bindsym $mod+9    workspace  $ws9
 bindsym $mod+0    workspace  $ws10
-bindsym $alt+minus workspace back_and_forth
 bindsym $mod+minus workspace back_and_forth
 
 
@@ -200,16 +202,16 @@ set $ws9 "9"
 set $ws10 "10"
 
 
-workspace $ws1 output $DP2
-workspace $ws4 output $DP2
-workspace $ws7 output $DP2
+workspace $ws1 output $DP1
+workspace $ws4 output $DP1
+workspace $ws7 output $DP1
 
-workspace $ws2 output $DP1
-workspace $ws3 output $DP1
-workspace $ws5 output $DP1
-workspace $ws6 output $DP1
-workspace $ws8 output $DP1
-workspace $ws9 output $DP1
+workspace $ws2 output $DP2
+workspace $ws3 output $DP2
+workspace $ws5 output $DP2
+workspace $ws6 output $DP2
+workspace $ws8 output $DP2
+workspace $ws9 output $DP2
 
 
 bindsym Print exec flameshot full
@@ -227,28 +229,33 @@ for_window [instance="^drata-agent$" class="^drata-agent$"] border pixel 0, floa
 # bindsym $mod+b [class="firefox" title="Nek Task Planner"] scratchpad show; resize set 1920 1060, move position center; exec $MyConfigRoot/scripts/personal/i3helper/runTasksManager.sh
 # for_window [class="firefox" title="Nek Task Planner"] floating enable, resize set 800 600, move scratchpad
 
-bindsym $mod+b [class="firefox" title="Inbox: Todoist"] scratchpad show; resize set 1920 1060, move position center; exec $MyConfigRoot/scripts/personal/i3helper/runtodoist.sh
-for_window [class="firefox" title="Inbox: Todoist"] floating enable, resize set 800 600, move scratchpad
+# bindsym $mod+b [class="firefox" title="Inbox: Todoist"] scratchpad show; resize set 1920 1060, move position center; exec $MyConfigRoot/scripts/personal/i3helper/runtodoist.sh
+# for_window [class="firefox" title="Inbox: Todoist"] floating enable, resize set 800 600, move scratchpad
 
 bindsym $mod+n [class="firefox" title="https://chat.openai.com"] scratchpad show; resize set 1920 1060, move position center; exec $MyConfigRoot/scripts/personal/i3helper/runScratchCHATGPT.sh
 for_window [class="firefox" title="https://chat.openai.com"] floating enable, resize set 800 600, move scratchpad
 
 bindsym $mod+shift+Return exec alacritty
 bindsym $mod+Return [class="Alacritty" title="terminal-scratch"] fullscreen enable, scratchpad show; move position center; exec $MyConfigRoot/scripts/personal/i3helper/runScratchTerminal.sh
+bindsym $alt+Return [class="Alacritty" title="terminal-scratch"] fullscreen enable, scratchpad show; move position center; exec $MyConfigRoot/scripts/personal/i3helper/runScratchTerminal.sh
 for_window [class="Alacritty" title="terminal-scratch"] floating enable, resize set 800 600, move scratchpad
 
-bindsym $mod+m [class="Slack"] scratchpad show; resize set 1920 1060, move position center
+# bindsym $mod+m [class="Slack"] scratchpad show; resize set 1920 1060, move position center
+# bindsym $alt+m [class="Slack"] scratchpad show; resize set 1920 1060, move position center
+# bindsym $mod+m [class="Slack"] resize set 1800 1440, scratchpad show;  move position 1640 0
+bindsym $mod+m [class="Slack"] fullscreen enable, scratchpad show;  move position center
+bindsym $alt+m [class="Slack"] fullscreen enable, scratchpad show;  move position center
 for_window [class="Slack"] floating enable, resize set 800 600, move scratchpad
 exec_always --no-startup-id exec slack
 
 exec_always --no-startup-id  exec [ $(ps h -C recoll | wc -l) = 0 ] && exec recoll
 
 # WK scripts shortcuts
-bindsym $mod+x exec $MyConfigRoot/scripts/personal/runTmuxSmartScript.sh 'wk bbw'
+# bindsym $mod+x exec $MyConfigRoot/scripts/personal/runTmuxSmartScript.sh 'wk bbw'
 
 focus_on_window_activation focus
 
-bindsym $mod+Shift+n exec --no-startup-id  xrandr --output $DP2 --brightness 0.5 && xrandr --output $DP1 --brightness 0.5
+bindsym $mod+Shift+n exec --no-startup-id  xrandr --output $DP2 --brightness 0.6 && xrandr --output $DP1 --brightness 0.5
 bindsym $mod+Shift+m exec --no-startup-id xrandr --output $DP2 --brightness 1.0 && xrandr --output $DP1 --brightness 1.0
 
 # Logitech headset commands
